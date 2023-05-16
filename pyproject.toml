@@ -12,11 +12,11 @@ build-backend = "setuptools.build_meta"
 # a variety of build tools. Notably, the version specified here is the
 # single source of truth for poochrepositories's version
 [project]
-name = "poochrepositories"
-description = "Add short description here"
+name = "pooch_repositories"
+description = "Library of data repository implementations for Pooch"
 readme = "README.md"
 maintainers = [
-    { name = "Dominic Kempf", email = "your@email.com" },
+    { name = "Dominic Kempf", email = "dominic.kempf@iwr.uni-heidelberg.de" },
 ]
 dynamic = ["version"]
 requires-python = ">=3.8"
@@ -27,6 +27,8 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
+    "pooch",
+    "requests",
 ]
 
 [project.optional-dependencies]
@@ -39,14 +41,20 @@ docs = [
     "sphinx_mdinclude",
     "sphinx_rtd_theme",
 ]
+update = [
+    "tqdm",
+    "xmltodict",
+]
 
+[project.scripts]
+scrape_re3data = "pooch_repositories.process:scrape_re3data"
 
 # The following section contains setuptools-specific configuration
 # options. For a full reference of available options, check the overview
 # at https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
 [tool.setuptools]
 packages = [
-    "poochrepositories",
+    "pooch_repositories",
 ]
 
 # Configure setuptools_scm, which extracts the version number from
@@ -55,7 +63,7 @@ packages = [
 [tool.setuptools_scm]
 version_scheme = "post-release"
 local_scheme = "node-and-date"
-write_to = "poochrepositories/_version.py"
+write_to = "pooch_repositories/_version.py"
 
 # The following is the configuration for the pytest test suite
 [tool.pytest.ini_options]

@@ -5,5 +5,5 @@ User API
 
 This is an example function:
 
-.. automodule:: poochrepositories
+.. automodule:: pooch_repositories
     :members:

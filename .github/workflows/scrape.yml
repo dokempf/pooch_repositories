@@ -1,20 +1,16 @@
-name: CI
+name: Scrape re3data
 
 on:
-  # We run CI on pushes to the main branch
-  push:
-    branches:
-      - main
-  # and on all pull requests to the main branch
-  pull_request:
-    branches:
-      - main
+  # We run this once a month
+  schedule:
+    - cron: '0 0 1 * *'
+
   # as well as upon manual triggers through the 'Actions' tab of the Github UI
   workflow_dispatch:
 
 jobs:
-  build-and-test:
-    name: Testing on Linux
+  update:
+    name: Scrape re3data and update the repository
     runs-on: ubuntu-latest
 
     steps:
@@ -31,8 +27,14 @@ jobs:
 
     - name: Install Python package
       run: |
-        python -m pip install .[tests]
+        python -m pip install .[update]
 
-    - name: Run Python tests
+    - name: Run update mechanism
       run: |
-        python -m pytest
+        scrape_re3data
+
+    - uses: EndBug/add-and-commit@v9
+      with:
+        add: "./pooch_repositories/data/re3data_software.json"
+        author_name: "Re3data Update Bot"
+        message: "Update Re3data data"

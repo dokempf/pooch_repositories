@@ -7,7 +7,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "pooch-repositories"
+project = "pooch_repositories"
 copyright = "2023, Dominic Kempf"
 author = "Dominic Kempf"
 
