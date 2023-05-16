@@ -5,19 +5,24 @@ modify the chain of responsibility for data repository resolution.
 """
 
 from pooch_repositories.dispatch import Re3dataDispatchRepository
-from pooch.downloaders import ZenodoRepository, FigshareRepository, doi_to_url
+from pooch.downloaders import ZenodoRepository, FigshareRepository, doi_to_url, HTTPDownloader
 from pooch.utils import parse_url
 
-# The module to patch
+from pooch_repositories.repos import *
+
+# The modules to patch
 import pooch.downloaders as pd
+import pooch.core as pc
 
 
-# This is the data
+# These are the general data repositories
 chain_of_responsibility = [
     Re3dataDispatchRepository,
     ZenodoRepository,
     FigshareRepository,
+    PangaeaRepository,
 ]
+
 
 
 def patched_doi_to_repository(doi):
@@ -71,3 +76,4 @@ def patched_doi_to_repository(doi):
 
 # Do the monkeypatching
 pd.doi_to_repository = patched_doi_to_repository
+pc.doi_to_repository = patched_doi_to_repository

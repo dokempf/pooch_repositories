@@ -1,5 +1,5 @@
 # Ignore setuptools_scm generated version file
-poochrepositories/_version.py
+pooch_repositories/_version.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

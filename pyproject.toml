@@ -27,6 +27,7 @@ classifiers = [
     "License :: OSI Approved :: BSD License",
 ]
 dependencies = [
+    "pangaeapy",
     "pooch",
     "requests",
 ]
@@ -55,6 +56,7 @@ scrape_re3data = "pooch_repositories.process:scrape_re3data"
 [tool.setuptools]
 packages = [
     "pooch_repositories",
+    "pooch_repositories.repos",
 ]
 
 # Configure setuptools_scm, which extracts the version number from
