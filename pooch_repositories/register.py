@@ -4,8 +4,8 @@ This should be entirely rewritten when there is a public interface to
 modify the chain of responsibility for data repository resolution.
 """
 
-from pooch_repositories.dispatch import Re3dataDispatchRepository
-from pooch.downloaders import ZenodoRepository, FigshareRepository, doi_to_url, HTTPDownloader
+from pooch_repositories.re3data import Re3dataDispatchRepository
+from pooch.downloaders import ZenodoRepository, FigshareRepository, doi_to_url
 from pooch.utils import parse_url
 
 from pooch_repositories.repos import *

@@ -23,23 +23,27 @@ def scrape_re3data():
     # Distill the software information from the raw data
     softwaredb = {}
     for sample in data:
-        if "r3d:software" in sample["r3d:re3data"]["r3d:repository"]:
-            software = sample["r3d:re3data"]["r3d:repository"]["r3d:software"]
-            if not isinstance(software, list):
-                software = [software]
-                if software != "unknown":
-                    if not isinstance(software, list):
-                        software = software
+        # If this repository does not use DOI's, it is useless to us
+        if sample["r3d:re3data"]["r3d:repository"].get("r3d:pidSystem", None) != "DOI":
+            continue
 
-                for sw in software:
-                    name = sw["r3d:softwareName"]
-                    if name in ["unknown", "other"]:
-                        continue
+        # Access the software field. If not present, the entry is useless to us
+        software = sample["r3d:re3data"]["r3d:repository"].get("r3d:software", None)
+        if software is None:
+            continue
 
-                    softwaredb.setdefault(name, [])
-                    softwaredb[name].append(
-                        sample["r3d:re3data"]["r3d:repository"]["r3d:repositoryURL"]
-                    )
+        if not isinstance(software, list):
+            software = [software]
+
+        for sw in software:
+            name = sw["r3d:softwareName"]
+            if name in ["unknown", "other"]:
+                continue
+
+            softwaredb.setdefault(name, [])
+            softwaredb[name].append(
+                sample["r3d:re3data"]["r3d:repository"]["r3d:repositoryURL"]
+            )
 
     # Dump softwaredb into a JSON file
     with open(

@@ -1,0 +1,1 @@
+from pooch_repositories.repos.pangaea import PangaeaRepository
